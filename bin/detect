@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo "Headless Chrome"
+exit 0

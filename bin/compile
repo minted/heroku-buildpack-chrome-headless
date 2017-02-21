@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -e
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+
+FILE_NAME=chrome
+BINARY_URL=https://s3.amazonaws.com/minted-wedding-websites-deployment/chrome-headless
+
+mkdir -p $CACHE_DIR
+if ! [ -e $CACHE_DIR/$FILE_NAME ]; then
+  echo "-----> Fetching Chrome binaries at ${BINARY_URL}"
+  curl $BINARY_URL -L -s -o $CACHE_DIR/$FILE_NAME
+fi
+
+echo "-----> Moving Chrome binaries to ${BUILD_DIR}/vendor/chrome/bin"
+mkdir -p $BUILD_DIR/vendor/chrome/bin
+mv $CACHE_DIR/$FILE_NAME $BUILD_DIR/vendor/chrome/bin/
+
+echo "-----> exporting PATH"
+PROFILE_PATH="$BUILD_DIR/.profile.d/chrome.sh"
+mkdir -p $(dirname $PROFILE_PATH)
+echo 'export PATH="$PATH:$HOME/vendor/chrome/bin"' >> $PROFILE_PATH
