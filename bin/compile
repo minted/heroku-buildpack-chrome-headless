@@ -17,6 +17,7 @@ fi
 echo "-----> Moving Chrome binaries to ${BUILD_DIR}/vendor/chrome/bin"
 mkdir -p $BUILD_DIR/vendor/chrome/bin
 mv $CACHE_DIR/$FILE_NAME $BUILD_DIR/vendor/chrome/bin/
+chmod +x $BUILD_DIR/vendor/chrome/bin/$FILE_NAME
 
 echo "-----> exporting PATH"
 PROFILE_PATH="$BUILD_DIR/.profile.d/chrome.sh"
